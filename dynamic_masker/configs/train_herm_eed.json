@@ -1,0 +1,85 @@
+{
+  "experiment": "Default",
+  "data": {
+    "path": "/data/scratch/pellerito/datasets/EED",
+    "mode": "time",
+    "sequence_len": 5,
+    "representation": "voxel",
+    "voxel_bins": 2,
+
+    "scales_loss": 1,
+    "passes_loss": 5
+  },
+  "model": {
+    "final_w_scale": 1.0,
+    "num_encoders": 4,
+    "num_residual_blocks": 2
+  },
+  "custom": {
+    "final_w_scale_flow": 0.01,
+    "current_flow_sup": false
+  },
+  "eed": {
+    "filter_events_to_dynamic_mask": false,
+    "event_filter": {
+      "enabled": false,
+      "type": "none",
+      "refractory_us": 0.0,
+      "support_window_us": 0.0,
+      "support_radius": 1
+    }
+  },
+  "loss": {
+    "name": "HermLoss",
+    "clip_grad": 5.0,
+    "bce_weight": 1,
+    "dice_weight": 0,
+    "class_weights": 5.0,
+    "alpha": 0.9,
+    "gamma": 1.0,
+    "lambda_future_mask": 1.0,
+    "lambda_flow": 0.1,
+    "lambda_flow_smooth": 0.005,
+
+    "warping": "Iterative",
+    "iterative_mode": "two",
+    "round_ts": false,
+    "flow_spat_smooth_weight": null,
+    "flow_temp_smooth_weight": null
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "lr": 0.001
+  },
+  "loader": {
+    "checkpoints_path": "checkpoints/checkpoints_EED",
+    "results_path": "dynamic_masker/results/EED_finetune",
+    "n_epochs": 50,
+    "validation_frequency": 1,
+
+    "batch_size": 4,
+    "max_num_grad_events": 20000,
+    "max_num_detach_events": 20000,
+    "n_workers": 4,
+
+    "resolution": [180, 190],
+    "augment": ["Horizontal", "Vertical", "Polarity"],
+    "augment_prob": [0.5, 0.5, 0.5],
+    "gpu": 0,
+    "seed": null,
+    "optical_flow_dt_ms": 100,
+    "event_dt_ms": 50,
+
+    "shuffle": true,
+    "prefetch_factor": 4
+  },
+  "vis": {
+    "verbose": true,
+    "log_wandb": true,
+    "plot_wandb": false,
+    "plot": false,
+    "enabled": false,
+    "store": false,
+    "px": 400
+  }
+}

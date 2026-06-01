@@ -1,0 +1,24 @@
+{
+    "experiment": "Default",
+    "data": {
+      "path": "/data/scratch/pellerito/datasets/DSEC",
+      "mode": "time",
+      "window": 0.01,
+      "voxel_bins": 2,
+      "representation": "voxel"
+    },
+    "vis": {
+      "plot": false,
+      "verbose": true
+    },
+    "model": {
+      "num_encoders": 4,
+      "final_w_scale": 1.0
+    },
+    "loader": {
+      "max_num_grad_events": 10000,
+      "gpu": 0,
+      "resolution": [480, 640]
+    }
+  }
+  
