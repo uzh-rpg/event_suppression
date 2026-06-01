@@ -1,14 +1,7 @@
 from abc import abstractmethod
-import os
-import sys
-
-import math
 import torch
 
-parent_dir_name = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-sys.path.append(parent_dir_name)
-
-from utils.iwe import event_propagation, get_event_flow, purge_unfeasible, get_interpolation, interpolate
+from dynamic_masker.utils.iwe import event_propagation, get_event_flow, purge_unfeasible, get_interpolation, interpolate
 
 
 class BaseEventWarping(torch.nn.Module):

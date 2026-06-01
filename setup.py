@@ -1,35 +1,22 @@
-from setuptools import setup, find_packages
-
-def parse_requirements(filename):
-    with open(filename, 'r') as f:
-        lines = f.read().splitlines()
-        return [
-            line for line in lines
-            if line and not line.startswith(('#', '-', '--'))
-        ]
+from setuptools import find_packages, setup
 
 
 setup(
-    name="dynamic_masker",
+    name="event-suppressor",
     version="0.1.0",
     author="Roberto Pellerito",
-    author_email="rpellerito@ifi.uzh.ch",
-    description="A package for dynamic object masking in visual odometry.",
-    long_description=open("README.md").read(),
-    long_description_content_type="text/markdown",
-    url="https://github.com/senecobis/dynamic_masker.git",  # Update if hosted
-    packages=find_packages(),  # Automatically finds subpackages
-    # install_requires=parse_requirements('requirements.txt'),
-    install_requires=[
-        "torch>=1.10.0", 
-        "numpy>=1.21.0", 
-        "matplotlib>=3.4.0",
-        # Add other dependencies here
-    ],
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",  # Change if needed
-        "Operating System :: OS Independent",
-    ],
+    description="Training and validation code for Event Suppressor.",
+    packages=find_packages(exclude=("tests", "tests.*")),
     python_requires=">=3.8",
+    install_requires=[
+        "torch>=1.12",
+        "torchvision>=0.13",
+        "numpy>=1.24",
+        "h5py>=3.6",
+        "hdf5plugin>=3.2",
+        "opencv-python>=4.5",
+        "scipy>=1.10",
+        "tqdm>=4.64",
+        "PyYAML>=6.0",
+    ],
 )

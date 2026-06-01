@@ -1,0 +1,56 @@
+{
+  "experiment": "event-suppressor-evimo",
+  "data": {
+    "dataset": "evimo",
+    "path": "/path/to/EVIMO1",
+    "split": "train",
+    "sequence_len": 5,
+    "representation": "voxel",
+    "voxel_bins": 2,
+    "scales_loss": 1,
+    "passes_loss": 5
+  },
+  "model": {
+    "final_w_scale": 1.0,
+    "num_encoders": 4,
+    "num_residual_blocks": 2
+  },
+  "custom": {
+    "final_w_scale_flow": 0.01,
+    "current_flow_sup": false
+  },
+  "loss": {
+    "name": "HermLoss",
+    "clip_grad": 5.0,
+    "bce_weight": 1.0,
+    "dice_weight": 0.0,
+    "class_weights": 5.0,
+    "lambda_future_mask": 1.0,
+    "warping": "Iterative",
+    "iterative_mode": "two",
+    "round_ts": false,
+    "flow_spat_smooth_weight": null,
+    "flow_temp_smooth_weight": null
+  },
+  "optimizer": {
+    "lr": 0.001
+  },
+  "loader": {
+    "checkpoints_path": "checkpoints",
+    "n_epochs": 50,
+    "batch_size": 8,
+    "n_workers": 4,
+    "resolution": [260, 346],
+    "augment": ["Horizontal", "Vertical", "Polarity"],
+    "augment_prob": [0.5, 0.5, 0.5],
+    "gpu": 0,
+    "seed": 42,
+    "optical_flow_dt_ms": 100,
+    "event_dt_ms": 50,
+    "shuffle": true,
+    "prefetch_factor": 4
+  },
+  "vis": {
+    "verbose": true
+  }
+}

@@ -19,7 +19,7 @@ class HydraUnetRecurrent(MultiResUNetRecurrent):
         self.multihead_attn = nn.MultiheadAttention(
             embed_dim=self.embedding_dim, 
             num_heads=self.num_heads, 
-            batch_first=True).cuda()
+            batch_first=True)
         
         self.num_output_channels_of = 2
         

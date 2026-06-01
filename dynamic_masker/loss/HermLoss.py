@@ -5,7 +5,7 @@ from .HydraLoss import HydraLoss
 class HermLoss(HydraLoss):
     def __init__(self,config, **kwargs):
         super().__init__(config=config, **kwargs)
-        self.supervised_mask_loss = torch.tensor(0.0).to('cuda')
+        self.supervised_mask_loss = torch.tensor(0.0, device=self.device)
 
     def update_(self, 
                 pred_mask_t0: list, 
@@ -39,7 +39,7 @@ class HermLoss(HydraLoss):
                 d_event_list: list = None, 
                 d_pol_mask: list = None
                 ):
-        self.supervised_mask_loss = torch.tensor(0.0).to('cuda')
+        self.supervised_mask_loss = torch.tensor(0.0, device=self.device)
         self.update_(
             pred_mask_t0=pred_mask_t0,
             gt_mask_t0=gt_mask_t0,
@@ -59,5 +59,5 @@ class HermLoss(HydraLoss):
         return self.supervised_mask_loss + self.unsupervised_flow_loss()
     
     def reset(self):
-        self.supervised_mask_loss = torch.tensor(0.0).to('cuda')
+        self.supervised_mask_loss = torch.tensor(0.0, device=self.device)
         self.unsupervised_flow_loss.reset()

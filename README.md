@@ -1,164 +1,175 @@
-# Taming Contrast Maximization for Learning Sequential Event-based Optical Flow Estimation
+# Event Suppressor
 
-Work accepted at ICCV'23 [[paper](https://arxiv.org/abs/2303.05214), [video](https://youtu.be/vkYimENc494)].
+[![Project page](docs/teaser.png)](https://rpg.ifi.uzh.ch/event_suppression/)
 
-If you use this code in an academic context, please cite our work:
+Official public code for **Event Suppressor**, associated with the paper
+[arXiv:2602.23204](https://arxiv.org/abs/2602.23204).
 
-```bibtex
-@InProceedings{Paredes-Valles_2023_ICCV,
-    author    = {Paredes-Vall\'es, Federico and Scheper, Kirk Y. W. and De Wagter, Christophe and de Croon, Guido C. H. E.},
-    title     = {Taming Contrast Maximization for Learning Sequential, Low-latency, Event-based Optical Flow},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2023},
-    pages     = {9695-9705}
-}
+This repository contains the essential training and validation code for dynamic object mask prediction from event-camera data. The public release focuses on:
 
+- training on **DSEC**;
+- training on **EVIMO v1**;
+- validation on **EVIMO v1** at the current instant `t0` and future instant `t1`;
+- validation entry point for **EED** at `t0` and `t1`.
+
+Data loading is delegated to the external repository checked out at `ev-loader/`. The current `ev-loader` copy contains DSEC and EVIMO loaders. It does not currently expose an EED loader, so EED validation raises an explicit error until an `evloader.EED_dataloader.EEDSequence` implementation is added.
+
+## Installation
+
+Using conda:
+
+```bash
+conda env create -f environment.yml
+conda activate event-suppressor
 ```
 
-This code allows for the reproduction of the experiments leading to the results in Section 4.2.
+Using venv:
 
-![Alt text](.readme/title.png)
-
-----------
-
-## Usage
-
-----------
-
-This project uses Python >= 3.7.3 and we strongly recommend the use of virtual environments. If you don't have an environment manager yet, we recommend `pyenv`. It can be installed via:
-
-```
-curl https://pyenv.run | bash
-```
-
-Make sure your `~/.bashrc` or `~/.zshrc` file contains the following:
-
-```
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-```
-
-After that, restart your terminal and run:
-
-```
-pyenv update
-```
-
-To set up your environment with `pyenv` first install the required python distribution and make sure the installation is successful (i.e., no errors nor warnings):
-
-```
-pyenv install -v 3.7.3
-```
-
-Once this is done, set up the environment and install the required libraries:
-
-```
-pyenv virtualenv 3.7.3 taming_flow
-pyenv activate taming_flow
-
-pip install --upgrade pip==20.0.2
-
-cd taming_flow/
-```
-
-To install our dependencies:
-
-```
+```bash
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
+pip install -e .
 ```
 
-### Download datasets
+## Repository Layout
 
-The following is a list of the datasets that are required to train/evaluate our models on the DSEC-Flow and MVSEC datasets:
-
-- **dsec_train** (1.98 GB): 128x128 random crops of the training partition of DSEC-Flow. Each sequence is two seconds of duration. Used for training.
-- **dsec_benchmark_aug** (15.94 GB): 480x640 test partition of DSEC-Flow. Used for evaluation.
-- **mvsec_eval** (653.5 MB): 260x346 outdoot_day_1 sequence, from seconds 222.4 to 240.4. Used for evaluation.
-
-The datasets can be downloaded from [here](https://1drv.ms/u/s!Ah0kx0CRKrAZjxMxBx4z5HN1CjWv?e=UiayaL) and are expected at: `../datasets/`.
-
-### Download models
-
-The pretrained models can be downloaded from [here](https://1drv.ms/u/s!Ah0kx0CRKrAZjxSwx8-UTUAncgg3?e=yM2g0i), and are expected at `mlruns/`.
-
-In this project we use MLflow to keep track of the experiments. To visualize the models tht are available, alongside other useful details and evaluation metrics, run the following from the home directory of the project:
-
-```
-mlflow ui
-```
-
-We provide our best performing models in the DSEC and MVSEC datasets.
-
-----------
-
-## Inference
-
-----------
-
-To estimate optical flow from event sequences from a dataset of your choice, adjust `config/eval_flow.yml` according to your needs and run:
-
-```
-python eval_flow.py <model_name>
-
-# for example:
-python eval_flow.py dsec_model
+```text
+dynamic_masker/
+  configs/
+    train_dsec.json        # DSEC training config
+    train_evimo.json       # EVIMO training config
+    validate_evimo.json    # EVIMO t0/t1 validation config
+    validate_eed.json      # EED t0/t1 validation config
+  models/                  # Event Suppressor / Hydra recurrent U-Net
+  loss/                    # Mask and event-warping losses
+  data.py                  # Dataset builders backed by ev-loader
+  training.py              # Training loop
+  validation.py            # Validation loop
+ev-loader/                 # External event-data loader repository
+train.py                   # CLI wrapper
+validate.py                # CLI wrapper
+tests/                     # Public smoke/unit tests
 ```
 
-where `<model_name>` is the name of MLflow run to be evaluated. Note that, if a run does not have a name (this would be the case for your own trained models), you can evaluated it through its run ID (also visible through MLflow).
+## Dataset Structure
 
-### MVSEC
+Set `data.path` in the JSON configs to the dataset root.
 
-Simply run:
+DSEC:
 
-```
-python eval_flow.py <model_name> --config configs/eval_mvsec.yml
-```
-
-### DSEC-Flow Public Benchmark
-If what you want to is to generate a submission to the [DSEC-Flow Optical Flow Public Benchmark](https://dsec.ifi.uzh.ch/uzh/dsec-flow-optical-flow-benchmark/), run:
-
-```
-python eval_flow.py <model_name> --config configs/eval_dsec.yml
-mkdir results_inference/<model_name>
-cp -r results_inference/<model_name>/results/eval_* results_inference/<model_name>/
-python prepare_dsec_submission.py <model_name> --eval_id <eval_id>
+```text
+DSEC/
+  train/
+    zurich_city_00_a/
+    ...
+  test/ or validation/
+    ...
 ```
 
-This will generate a `submission/` folder in the directory with your results. Zip it and submit!
+EVIMO v1 after conversion to HDF5:
 
-The DSEC submission associated to our best performing model can be downloaded for inspection from [here](https://1drv.ms/u/s!Ah0kx0CRKrAZjyfkk6kgwMKgxar_?e=njw0KT).
+```text
+EVIMO1/
+  train/
+    box/
+      seq_00.h5
+      ...
+  test/
+    box/
+      seq_00.h5
+      ...
+```
 
-----------
+EED expected structure:
+
+```text
+EED/
+  test/
+    <sequence directories or files expected by the EED loader>
+```
+
+The EED structure depends on the missing `ev-loader` EED loader. Add that loader to `ev-loader/evloader/EED_dataloader` and keep the public validation command unchanged.
 
 ## Training
 
-----------
+Edit the dataset path in the config first:
 
-Run:
-
+```json
+"data": {
+  "dataset": "evimo",
+  "path": "/path/to/EVIMO1"
+}
 ```
-python train_flow.py
+
+Train on EVIMO:
+
+```bash
+python train.py --config dynamic_masker/configs/train_evimo.json
 ```
 
-to train an traditional artificial neural network. In `configs/`, you can find the configuration files and vary the training settings (e.g., input settings, model, event warping, activate/deactivate visualization). For other models available, see `models/model.py`. 
+Train on DSEC:
 
-**Note that we used a batch size of 8 in our experiments. Depending on your computational resources, you may need to lower this number.**
-
-During and after the training, information about your run can be visualized through [MLflow](https://www.mlflow.org/docs/latest/index.html#) and [TensorBoard](https://www.tensorflow.org/tensorboard).
-
-----------
-
-## Uninstalling pyenv
-
-----------
-
-Once you finish using our code, you can uninstall `pyenv` from your system by:
-
-1. Removing the `pyenv` configuration lines from your `~/.bashrc`.
-2. Removing its root directory. This will delete all Python versions that were installed under the `$HOME/.pyenv/versions/` directory:
-
+```bash
+python train.py --config dynamic_masker/configs/train_dsec.json
 ```
-rm -rf $HOME/.pyenv/
+
+Resume or fine-tune from a checkpoint:
+
+```bash
+python train.py \
+  --config dynamic_masker/configs/train_evimo.json \
+  --checkpoint checkpoints/EventSuppressor_EVIMO_<timestamp>/model_epoch_10.pth
+```
+
+Checkpoints are written under `loader.checkpoints_path`.
+
+## Validation
+
+Validate EVIMO at current and future instants:
+
+```bash
+python validate.py \
+  --config dynamic_masker/configs/validate_evimo.json \
+  --checkpoint checkpoints/EventSuppressor_EVIMO_<timestamp>/model_epoch_49.pth \
+  --output results/evimo_model_epoch_49
+```
+
+Validate EED after adding the EED loader to `ev-loader`:
+
+```bash
+python validate.py \
+  --config dynamic_masker/configs/validate_eed.json \
+  --checkpoint checkpoints/EventSuppressor_EVIMO_<timestamp>/model_epoch_49.pth \
+  --output results/eed_model_epoch_49
+```
+
+Validation writes `results.json` with per-sequence and aggregate metrics:
+
+- `IoU/t0`, `mIoU/t0`, `pIoU/t0`, `SR@0.5/t0`;
+- `IoU/t1`, `mIoU/t1`, `pIoU/t1`, `SR@0.5/t1`.
+
+For short smoke runs, configs may include:
+
+- `loader.max_batches`: stop training after this many batches per epoch;
+- `eval.max_sequences`: validate only the first N sequences;
+- `eval.max_samples`: validate only the first N pairs per sequence.
+
+## Tests
+
+```bash
+pytest -q
+```
+
+The tests cover public config loading, metric computation, public module imports, and the explicit EED-loader error.
+
+## Citation
+
+```bibtex
+@article{dynamicmasker2026,
+  title={Event Suppressor},
+  author={Pellerito, Roberto and collaborators},
+  journal={arXiv preprint arXiv:2602.23204},
+  year={2026}
+}
 ```

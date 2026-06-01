@@ -4,8 +4,11 @@ from pathlib import Path
 from torch.utils.data.dataloader import default_collate
 from torch.optim.lr_scheduler import OneCycleLR
 
-from suppressor.utils.utils import open_config_json
 from dynamic_masker.models.model_hydra import HydraEVNet
+from dynamic_masker.config import load_config
+
+
+open_config_json = load_config
 
 def setup_hydra_model(model_path, config_path, device):
     config = open_config_json(config_path)
@@ -60,7 +63,7 @@ def load_optimizer_epoch_seen_samples(optimizer, device, model_dir=""):
         else:
             total_seen_samples = 0
     else:
-        starting_epoch = 0
+        starting_epoch = -1
         total_seen_samples = 0
     
     return optimizer, starting_epoch, total_seen_samples

@@ -27,7 +27,8 @@ class HydraLoss(nn.Module):
         self.flow_loss = nn.L1Loss()
         self.unsupervised_flow_loss = Iterative(config, device=kwargs["device"])
 
-        self.supervised_mask_loss = torch.tensor(0.0).to('cuda')
+        self.device = kwargs["device"]
+        self.supervised_mask_loss = torch.tensor(0.0, device=self.device)
 
     @staticmethod
     def charbonnier_loss(predicted, gt, epsilon=1e-3):
@@ -131,5 +132,5 @@ class HydraLoss(nn.Module):
         return self.w_sup*self.supervised_mask_loss + self.w_unsup*self.unsupervised_flow_loss()
     
     def reset(self):
-        self.supervised_mask_loss = torch.tensor(0.0).to('cuda')
+        self.supervised_mask_loss = torch.tensor(0.0, device=self.device)
         self.unsupervised_flow_loss.reset()

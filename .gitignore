@@ -17,6 +17,7 @@ outputs/*
 
 *.log
 *.prof
+.venv/
 **/__pycache__/*
 **/*.pyc
 *.mp4
@@ -49,3 +50,4 @@ wandb
 results
 
 *.png
+!docs/*.png
