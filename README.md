@@ -36,33 +36,56 @@ Create a minimal conda environment and install the Python packages with `pip`:
 ```bash
 conda create -n evsup python=3.10 -y
 conda activate evsup
+export PYTHONNOUSERSITE=1
 ```
 
-Install PyTorch for your CUDA version. For CUDA 12.1:
+Install PyTorch. NVIDIA drivers are backward-compatible with older CUDA runtimes, so a machine reporting CUDA 13.x through `nvidia-smi` can run the CUDA 12.1 PyTorch wheels. For CUDA-capable machines:
 
 ```bash
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+python -m pip install --no-cache-dir \
+  torch==2.5.1 torchvision==0.20.1 \
+  --index-url https://download.pytorch.org/whl/cu121 \
+  --extra-index-url https://pypi.org/simple
 ```
 
 For CPU-only machines:
 
 ```bash
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+python -m pip install --no-cache-dir \
+  torch==2.5.1 torchvision==0.20.1 \
+  --index-url https://download.pytorch.org/whl/cpu \
+  --extra-index-url https://pypi.org/simple
 ```
 
 Then install Event Suppressor:
 
 ```bash
-pip install -r requirements.txt
-pip install -e .
+python -m pip install -r requirements.txt
+python -m pip install -e .
+python -m pip install pytest
 ```
+
+PyTorch is intentionally not listed in `requirements.txt` because the correct wheel depends on your CUDA/CPU setup.
+
+If importing PyTorch fails with `ImportError: libcudnn.so.9`, user-site packages are likely leaking into the conda environment. Keep `PYTHONNOUSERSITE=1` set and repair the PyTorch stack with:
+
+```bash
+python -m pip install --force-reinstall --no-cache-dir \
+  torch==2.5.1 torchvision==0.20.1 \
+  --index-url https://download.pytorch.org/whl/cu121 \
+  --extra-index-url https://pypi.org/simple
+
+python -m pip show torch nvidia-cudnn-cu12 | grep -E 'Name|Version|Location'
+```
+
+The `Location` lines should point inside `$CONDA_PREFIX/lib/python3.10/site-packages`, not `~/.local/lib/python3.10/site-packages`.
 
 Do not install `ev-loader` with `pip install -e ./ev-loader` unless you also want all of its optional loader and visualization dependencies. This repository imports `ev-loader` directly from the checked-out `./ev-loader` folder.
 
 After installation, run:
 
 ```bash
-pytest -q
+python -m pytest -q
 python train.py --help
 python validate.py --help
 ```
@@ -193,7 +216,7 @@ For short smoke runs, configs may include:
 ## Tests
 
 ```bash
-pytest -q
+python -m pytest -q
 ```
 
 The tests cover public config loading, metric computation, public module imports, and the explicit EED-loader error.

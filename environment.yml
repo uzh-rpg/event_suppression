@@ -1,21 +1,6 @@
 name: evsup
-channels:
-  - pytorch
-  - nvidia
-  - conda-forge
 dependencies:
   - python=3.10
   - pip
-  - pytorch=2.4.*
-  - torchvision=0.19.*
-  - pytorch-cuda=12.1
-  - numpy=1.24.*
-  - h5py
-  - scipy
-  - pyyaml
-  - tqdm
-  - pip:
-      - hdf5plugin
-      - opencv-python
-      - albumentations>=1.4.18
-      - -e .
+variables:
+  PYTHONNOUSERSITE: "1"

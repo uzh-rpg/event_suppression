@@ -9,8 +9,6 @@ setup(
     packages=find_packages(exclude=("tests", "tests.*")),
     python_requires=">=3.8",
     install_requires=[
-        "torch>=1.12",
-        "torchvision>=0.13",
         "numpy>=1.24",
         "h5py>=3.6",
         "hdf5plugin>=3.2",
