@@ -18,6 +18,8 @@ If you use any part of this code or datasets accompanying the paper please consi
 }
 ```
 
+## Info
+
 This repository contains the essential training and validation code for dynamic object mask prediction from event-camera data. The public release focuses on:
 
 - training on **DSEC**;
