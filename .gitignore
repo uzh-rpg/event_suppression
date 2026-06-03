@@ -51,3 +51,4 @@ results
 
 *.png
 !docs/*.png
+!assets/method_new.png

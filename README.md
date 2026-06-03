@@ -1,6 +1,6 @@
-# Event Suppressor
+# Motion-aware Event Suppression for Event Cameras
 
-[![Project page](docs/teaser.png)](https://rpg.ifi.uzh.ch/event_suppression/)
+[![Event Suppressor method overview](assets/method_new.png)](https://rpg.ifi.uzh.ch/event_suppression/)
 
 Official public code for **Event Suppressor**, associated with the paper
 [arXiv:2602.23204](https://arxiv.org/abs/2602.23204).

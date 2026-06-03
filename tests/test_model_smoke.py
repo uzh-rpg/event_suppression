@@ -15,6 +15,17 @@ def test_hydra_model_forward_smoke_cpu():
     with torch.no_grad():
         outputs = model(torch.randn(1, 2, 32, 32), torch.tensor([[0.05]]))
 
-    assert outputs["mask"][-1].shape == (1, 1, 32, 32)
-    assert outputs["future_mask"][-1].shape == (1, 1, 32, 32)
-    assert outputs["flow"][-1].shape == (1, 2, 32, 32)
+    assert set(outputs) == {"mask", "future_mask", "flow", "flow_t0"}
+    assert len(outputs["mask"]) == 2
+    assert len(outputs["future_mask"]) == 2
+    assert len(outputs["flow"]) == 2
+    assert len(outputs["flow_t0"]) == 2
+
+    for mask in outputs["mask"]:
+        assert mask.shape == (1, 1, 32, 32)
+    for future_mask in outputs["future_mask"]:
+        assert future_mask.shape == (1, 1, 32, 32)
+    for flow in outputs["flow"]:
+        assert flow.shape == (1, 2, 32, 32)
+    for flow_t0 in outputs["flow_t0"]:
+        assert flow_t0.shape == (1, 2, 32, 32)
