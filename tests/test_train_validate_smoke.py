@@ -3,8 +3,8 @@ from pathlib import Path
 
 import torch
 
-from dynamic_masker.training import EventSuppressorTrainer
-from dynamic_masker.validation import EventSuppressorValidator
+from evsup.training import EventSuppressorTrainer
+from evsup.validation import EventSuppressorValidator
 
 
 def _base_config(tmp_path):
@@ -114,7 +114,7 @@ class SmokeLoss(torch.nn.Module):
 
 
 def test_training_loop_writes_checkpoint(monkeypatch, tmp_path):
-    import dynamic_masker.training as training
+    import evsup.training as training
 
     monkeypatch.setattr(training, "build_train_dataset", lambda config: SyntheticTrainDataset())
     monkeypatch.setitem(training.LOSS_REGISTRY, "SmokeLoss", SmokeLoss)
@@ -129,7 +129,7 @@ def test_training_loop_writes_checkpoint(monkeypatch, tmp_path):
 
 
 def test_validation_loop_writes_results(monkeypatch, tmp_path):
-    import dynamic_masker.validation as validation
+    import evsup.validation as validation
 
     monkeypatch.setattr(
         validation,

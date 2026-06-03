@@ -1,6 +1,6 @@
 import torch
 
-from dynamic_masker.models.model_hydra import HydraEVNet
+from evsup.models.model_hydra import HydraEVNet
 
 
 def test_hydra_model_forward_smoke_cpu():

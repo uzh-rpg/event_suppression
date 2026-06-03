@@ -1,5 +1,5 @@
 {
-  "experiment": "event-suppressor-evimo",
+  "experiment": "evsup-evimo",
   "data": {
     "dataset": "evimo",
     "path": "/path/to/EVIMO1",

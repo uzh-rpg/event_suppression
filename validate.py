@@ -1,4 +1,4 @@
-from dynamic_masker.validation import main
+from evsup.validation import main
 
 
 if __name__ == "__main__":

@@ -4,8 +4,8 @@ from pathlib import Path
 from torch.utils.data.dataloader import default_collate
 from torch.optim.lr_scheduler import OneCycleLR
 
-from dynamic_masker.models.model_hydra import HydraEVNet
-from dynamic_masker.config import load_config
+from evsup.models.model_hydra import HydraEVNet
+from evsup.config import load_config
 
 
 open_config_json = load_config

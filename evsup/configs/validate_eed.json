@@ -1,8 +1,8 @@
 {
-  "experiment": "event-suppressor-evimo-validation",
+  "experiment": "evsup-eed-validation",
   "data": {
-    "dataset": "evimo",
-    "path": "/path/to/EVIMO1",
+    "dataset": "eed",
+    "path": "/path/to/EED",
     "split": "test",
     "representation": "voxel",
     "voxel_bins": 2
@@ -18,8 +18,8 @@
   },
   "loader": {
     "gpu": 0,
-    "resolution": [260, 346],
-    "event_dt_ms": 50,
+    "resolution": [180, 190],
+    "event_dt_ms": 10,
     "optical_flow_dt_ms": 100
   },
   "eval": {

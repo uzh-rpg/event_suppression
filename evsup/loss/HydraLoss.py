@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from .BCEDiceLoss import BCEDiceLoss
-from dynamic_masker.loss.flow import Iterative
+from evsup.loss.flow import Iterative
 
 # Multi-task Supervision Loss with flow smoothness
 class HydraLoss(nn.Module):

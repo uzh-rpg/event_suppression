@@ -1,5 +1,5 @@
 {
-  "experiment": "event-suppressor-dsec",
+  "experiment": "evsup-dsec",
   "data": {
     "dataset": "dsec",
     "path": "/path/to/DSEC",

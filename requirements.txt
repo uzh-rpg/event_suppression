@@ -9,5 +9,6 @@ tqdm>=4.64
 PyYAML>=6.0
 albumentations>=1.4.18
 
-# Install the external loader from the checked-out submodule/repository.
--e ./ev-loader
+# ev-loader is imported from the checked-out ./ev-loader directory at runtime.
+# Do not install it with dependencies here; its upstream requirements include
+# optional loaders/visualization packages that are not needed for this project.

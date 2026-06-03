@@ -12,13 +12,13 @@ import torch
 from torch.nn.utils import clip_grad_norm_
 from torch.optim import AdamW
 
-from dynamic_masker.config import get_device, load_config, save_config
-from dynamic_masker.data import build_train_dataset
-from dynamic_masker.loss.HermLoss import HermLoss
-from dynamic_masker.loss.HydraLoss import HydraLoss
-from dynamic_masker.models.model_hydra import HydraEVNet
-from dynamic_masker.models.model_util import initialize_weights, label_smoothing
-from dynamic_masker.utils.utils import custom_collate, load_model, load_optimizer_epoch_seen_samples, save_model
+from evsup.config import get_device, load_config, save_config
+from evsup.data import build_train_dataset
+from evsup.loss.HermLoss import HermLoss
+from evsup.loss.HydraLoss import HydraLoss
+from evsup.models.model_hydra import HydraEVNet
+from evsup.models.model_util import initialize_weights, label_smoothing
+from evsup.utils.utils import custom_collate, load_model, load_optimizer_epoch_seen_samples, save_model
 
 
 LOSS_REGISTRY = {

@@ -1,7 +1,7 @@
 from abc import abstractmethod
 import torch
 
-from dynamic_masker.utils.iwe import event_propagation, get_event_flow, purge_unfeasible, get_interpolation, interpolate
+from evsup.utils.iwe import event_propagation, get_event_flow, purge_unfeasible, get_interpolation, interpolate
 
 
 class BaseEventWarping(torch.nn.Module):

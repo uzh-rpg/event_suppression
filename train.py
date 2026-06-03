@@ -1,4 +1,4 @@
-from dynamic_masker.training import main
+from evsup.training import main
 
 
 if __name__ == "__main__":

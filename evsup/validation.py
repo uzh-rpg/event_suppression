@@ -8,11 +8,11 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
-from dynamic_masker.config import get_device, load_config
-from dynamic_masker.data import build_validation_sequences
-from dynamic_masker.metrics import mask_metrics, nanmean_percent, success_at
-from dynamic_masker.models.model_hydra import HydraEVNet
-from dynamic_masker.utils.utils import load_model
+from evsup.config import get_device, load_config
+from evsup.data import build_validation_sequences
+from evsup.metrics import mask_metrics, nanmean_percent, success_at
+from evsup.models.model_hydra import HydraEVNet
+from evsup.utils.utils import load_model
 
 
 class EventSuppressorValidator:

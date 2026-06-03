@@ -3,12 +3,12 @@ from pathlib import Path
 
 import torch
 
-from dynamic_masker.config import load_config
-from dynamic_masker.metrics import mask_metrics, success_at
+from evsup.config import load_config
+from evsup.metrics import mask_metrics, success_at
 
 
 def test_public_configs_are_loadable():
-    config_dir = Path("dynamic_masker/configs")
+    config_dir = Path("evsup/configs")
     for path in [
         config_dir / "train_dsec.json",
         config_dir / "train_evimo.json",

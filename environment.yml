@@ -1,4 +1,4 @@
-name: event-suppressor
+name: evsup
 channels:
   - pytorch
   - nvidia
@@ -6,10 +6,10 @@ channels:
 dependencies:
   - python=3.10
   - pip
-  - pytorch
-  - torchvision
+  - pytorch=2.4.*
+  - torchvision=0.19.*
   - pytorch-cuda=12.1
-  - numpy
+  - numpy=1.24.*
   - h5py
   - scipy
   - pyyaml
@@ -17,6 +17,5 @@ dependencies:
   - pip:
       - hdf5plugin
       - opencv-python
-      - albumentations
-      - -e ./ev-loader
+      - albumentations>=1.4.18
       - -e .

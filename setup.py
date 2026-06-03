@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 
 setup(
-    name="event-suppressor",
+    name="evsup",
     version="0.1.0",
     author="Roberto Pellerito",
     description="Training and validation code for Event Suppressor.",

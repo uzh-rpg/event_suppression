@@ -31,26 +31,46 @@ Data loading is delegated to the external repository checked out at `ev-loader/`
 
 ## Installation
 
-Using conda:
+Create a minimal conda environment and install the Python packages with `pip`:
 
 ```bash
-conda env create -f environment.yml
-conda activate event-suppressor
+conda create -n evsup python=3.10 -y
+conda activate evsup
 ```
 
-Using venv:
+Install PyTorch for your CUDA version. For CUDA 12.1:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+```
+
+For CPU-only machines:
+
+```bash
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+```
+
+Then install Event Suppressor:
+
+```bash
 pip install -r requirements.txt
 pip install -e .
+```
+
+Do not install `ev-loader` with `pip install -e ./ev-loader` unless you also want all of its optional loader and visualization dependencies. This repository imports `ev-loader` directly from the checked-out `./ev-loader` folder.
+
+After installation, run:
+
+```bash
+pytest -q
+python train.py --help
+python validate.py --help
 ```
 
 ## Repository Layout
 
 ```text
-dynamic_masker/
+evsup/
   configs/
     train_dsec.json        # DSEC training config
     train_evimo.json       # EVIMO training config
@@ -120,20 +140,20 @@ Edit the dataset path in the config first:
 Train on EVIMO:
 
 ```bash
-python train.py --config dynamic_masker/configs/train_evimo.json
+python train.py --config evsup/configs/train_evimo.json
 ```
 
 Train on DSEC:
 
 ```bash
-python train.py --config dynamic_masker/configs/train_dsec.json
+python train.py --config evsup/configs/train_dsec.json
 ```
 
 Resume or fine-tune from a checkpoint:
 
 ```bash
 python train.py \
-  --config dynamic_masker/configs/train_evimo.json \
+  --config evsup/configs/train_evimo.json \
   --checkpoint checkpoints/EventSuppressor_EVIMO_<timestamp>/model_epoch_10.pth
 ```
 
@@ -145,7 +165,7 @@ Validate EVIMO at current and future instants:
 
 ```bash
 python validate.py \
-  --config dynamic_masker/configs/validate_evimo.json \
+  --config evsup/configs/validate_evimo.json \
   --checkpoint checkpoints/EventSuppressor_EVIMO_<timestamp>/model_epoch_49.pth \
   --output results/evimo_model_epoch_49
 ```
@@ -154,7 +174,7 @@ Validate EED after adding the EED loader to `ev-loader`:
 
 ```bash
 python validate.py \
-  --config dynamic_masker/configs/validate_eed.json \
+  --config evsup/configs/validate_eed.json \
   --checkpoint checkpoints/EventSuppressor_EVIMO_<timestamp>/model_epoch_49.pth \
   --output results/eed_model_epoch_49
 ```
