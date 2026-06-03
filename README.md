@@ -2,8 +2,8 @@
 
 [![Event Suppressor method overview](assets/method_new.png)](https://rpg.ifi.uzh.ch/event_suppression/)
 
-Official public code for **Event Suppressor**, associated with the paper
-[arXiv:2602.23204](https://arxiv.org/abs/2602.23204).
+This is the official PyTorch implementation of the RSS 2026 paper
+[**Motion-aware Event Suppression for Event Cameras**](https://arxiv.org/abs/2602.23204).
 
 This repository contains the essential training and validation code for dynamic object mask prediction from event-camera data. The public release focuses on:
 
@@ -165,11 +165,13 @@ The tests cover public config loading, metric computation, public module imports
 
 ## Citation
 
+If you use any part of this code or datasets accompanying the paper please consider citing the following:
+
 ```bibtex
-@article{dynamicmasker2026,
-  title={Event Suppressor},
-  author={Pellerito, Roberto and collaborators},
-  journal={arXiv preprint arXiv:2602.23204},
+@inproceedings{Pellerito2026Suppression,
+  title={Motion-aware Event Suppression for Event Cameras},
+  author={Pellerito, Roberto and Messikommer, Nico and Cioffi, Giovanni and Cannici, Marco and Scaramuzza, Davide},
+  booktitle={Robotics: Science and Systems 2026},
   year={2026}
 }
 ```
