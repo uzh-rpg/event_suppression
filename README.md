@@ -5,6 +5,19 @@
 This is the official PyTorch implementation of the RSS 2026 paper
 [**Motion-aware Event Suppression for Event Cameras**](https://arxiv.org/abs/2602.23204).
 
+## Citation
+
+If you use any part of this code or datasets accompanying the paper please consider citing the following:
+
+```bibtex
+@inproceedings{Pellerito2026Suppression,
+  title={Motion-aware Event Suppression for Event Cameras},
+  author={Pellerito, Roberto and Messikommer, Nico and Cioffi, Giovanni and Cannici, Marco and Scaramuzza, Davide},
+  booktitle={Robotics: Science and Systems 2026},
+  year={2026}
+}
+```
+
 This repository contains the essential training and validation code for dynamic object mask prediction from event-camera data. The public release focuses on:
 
 - training on **DSEC**;
@@ -162,16 +175,3 @@ pytest -q
 ```
 
 The tests cover public config loading, metric computation, public module imports, and the explicit EED-loader error.
-
-## Citation
-
-If you use any part of this code or datasets accompanying the paper please consider citing the following:
-
-```bibtex
-@inproceedings{Pellerito2026Suppression,
-  title={Motion-aware Event Suppression for Event Cameras},
-  author={Pellerito, Roberto and Messikommer, Nico and Cioffi, Giovanni and Cannici, Marco and Scaramuzza, Davide},
-  booktitle={Robotics: Science and Systems 2026},
-  year={2026}
-}
-```
