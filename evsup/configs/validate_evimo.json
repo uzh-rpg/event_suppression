@@ -2,7 +2,7 @@
   "experiment": "evsup-evimo-validation",
   "data": {
     "dataset": "evimo",
-    "path": "/path/to/EVIMO1",
+    "path": "/data/scratch/pellerito/datasets/EVIMO1",
     "split": "test",
     "representation": "voxel",
     "voxel_bins": 2

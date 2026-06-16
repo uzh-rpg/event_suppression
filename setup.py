@@ -16,5 +16,9 @@ setup(
         "scipy>=1.10",
         "tqdm>=4.64",
         "PyYAML>=6.0",
+        "numba>=0.65",
+        "matplotlib>=3.10",
+        "pandas>=2.3",
+        "imageio>=2.37",
     ],
 )

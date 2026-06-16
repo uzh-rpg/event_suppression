@@ -2,7 +2,7 @@
   "experiment": "evsup-evimo",
   "data": {
     "dataset": "evimo",
-    "path": "/path/to/EVIMO1",
+    "path": "/data/scratch/pellerito/datasets/EVIMO1",
     "split": "train",
     "sequence_len": 5,
     "representation": "voxel",
