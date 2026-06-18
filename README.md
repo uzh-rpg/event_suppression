@@ -7,6 +7,8 @@ This is the official PyTorch implementation of the RSS 2026 paper
 
 Visit the [project page](https://rpg.ifi.uzh.ch/event_suppression/) for more details.
 
+Watch the [video](https://www.youtube.com/watch?v=mnY45jmwDC0).
+
 ## Citation
 
 If you use any part of this code or datasets accompanying the paper please consider citing the following:
