@@ -1,6 +1,6 @@
 # Motion-aware Event Suppression for Event Cameras
 
-[![Event Suppressor method overview](assets/method_new.png)](https://youtu.be/XN6l91hRA54)
+[![Event Suppressor method overview](assets/thumbnail_yt.png)](https://youtu.be/XN6l91hRA54)
 
 This is the official PyTorch implementation of the RSS 2026 paper
 [**Motion-aware Event Suppression for Event Cameras**](https://arxiv.org/abs/2602.23204). 

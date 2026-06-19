@@ -52,3 +52,4 @@ results
 *.png
 !docs/*.png
 !assets/method_new.png
+!assets/thumbnail_yt.png
