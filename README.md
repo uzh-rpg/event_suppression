@@ -33,6 +33,30 @@ This repository contains the essential training and validation code for dynamic 
 
 Data loading is delegated to the external repository checked out at `ev-loader/`. The current `ev-loader` copy contains DSEC and EVIMO loaders. It does not currently expose an EED loader, so EED validation raises an explicit error until an `evloader.EED_dataloader.EEDSequence` implementation is added.
 
+## ev-loader Checkout
+
+This repository expects `ev-loader/` at the repository root. It is tracked as a Git submodule from [senecobis/ev-loader](https://github.com/senecobis/ev-loader) and is pinned to commit `b0d86a00bf35883b5ead089e3ca01bb7442e4379`.
+
+When cloning this repository, fetch the pinned loader checkout with:
+
+```bash
+git clone --recurse-submodules <event_suppression_repo_url>
+cd event_suppression
+```
+
+If the repository was already cloned without submodules, run:
+
+```bash
+git submodule update --init --recursive
+```
+
+To recreate the same `ev-loader/` checkout manually:
+
+```bash
+git clone https://github.com/senecobis/ev-loader.git ev-loader
+git -C ev-loader checkout b0d86a00bf35883b5ead089e3ca01bb7442e4379
+```
+
 ## Installation
 
 Create a minimal conda environment and install the Python packages with `pip`:
