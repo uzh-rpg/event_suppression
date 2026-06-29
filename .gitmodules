@@ -1,0 +1,3 @@
+[submodule "ev-loader"]
+	path = ev-loader
+	url = https://github.com/senecobis/ev-loader.git

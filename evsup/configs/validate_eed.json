@@ -1,0 +1,31 @@
+{
+  "experiment": "evsup-eed-validation",
+  "data": {
+    "dataset": "eed",
+    "path": "/path/to/EED",
+    "split": "test",
+    "representation": "voxel",
+    "voxel_bins": 2
+  },
+  "model": {
+    "final_w_scale": 1.0,
+    "num_encoders": 4,
+    "num_residual_blocks": 2
+  },
+  "custom": {
+    "final_w_scale_flow": 0.01,
+    "current_flow_sup": false
+  },
+  "loader": {
+    "gpu": 0,
+    "resolution": [180, 190],
+    "event_dt_ms": 10,
+    "optical_flow_dt_ms": 100
+  },
+  "eval": {
+    "mask_threshold": 0.5
+  },
+  "vis": {
+    "verbose": true
+  }
+}

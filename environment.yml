@@ -1,0 +1,6 @@
+name: evsup
+dependencies:
+  - python=3.10
+  - pip
+variables:
+  PYTHONNOUSERSITE: "1"
