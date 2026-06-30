@@ -1,13 +1,41 @@
-# Motion-aware Event Suppression for Event Cameras
+<p align="center">
+    <h1 align="center"> Motion-aware Event Suppression for Event Cameras </h1>
+</p>
+<p align="center">
+    Roberto Pellerito, Nico Messikommer, Giovanni Cioffi, Marco Cannici, Davide Scaramuzza<br/>
+</p>
+<p align="center">
+    <i>Robotics and Perception Group, University of Zürich</i>
+</p>
+<p align="center">
+    <strong>Robotics: Science and Systems (RSS) 2026</strong>
+</p>
 
-[![Event Suppressor method overview](assets/thumbnail_yt.png)](https://youtu.be/ij93FTR3HQE)
+<p align="center">
+  <a href="https://roboticsconference.org/">
+    <img src="https://img.shields.io/badge/Conference-RSS%202026-blue.svg"/>
+  </a>
+  <a href="https://arxiv.org/abs/2602.23204">
+    <img src="https://img.shields.io/badge/Paper-arXiv-b31b1b.svg"/>
+  </a>
+  <a href="https://rpg.ifi.uzh.ch/event_suppression/">
+    <img src="https://img.shields.io/badge/Project-Page-green.svg"/>
+  </a>
+  <a href="https://youtu.be/ij93FTR3HQE">
+    <img src="https://img.shields.io/badge/Video-YouTube-red.svg"/>
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-GPLv3-blue.svg"/>
+  </a>
+</p>
+<p align="center">
+  <a href="https://youtu.be/ij93FTR3HQE">
+    <img src="assets/thumbnail_yt.png" alt="Motion-aware Event Suppression for Event Cameras" width="800"/>
+  </a>
+</p>
 
 This is the official PyTorch implementation of the RSS 2026 paper
-[**Motion-aware Event Suppression for Event Cameras**](https://arxiv.org/abs/2602.23204). 
-
-Visit the [project page](https://rpg.ifi.uzh.ch/event_suppression/) for more details.
-
-Watch the [video](https://youtu.be/ij93FTR3HQE).
+[**Motion-aware Event Suppression for Event Cameras**](https://arxiv.org/abs/2602.23204).
 
 ## Citation
 
@@ -201,6 +229,8 @@ python train.py --config evsup/configs/train_dsec.json
 ```
 
 Resume or fine-tune from a checkpoint:
+
+Download the pretrained checkpoints from [event_suppression_checkpoints.zip](https://download.ifi.uzh.ch/rpg/event_suppression/event_suppression_checkpoints.zip).
 
 ```bash
 python train.py \
